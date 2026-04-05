@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ask Grace — AI Companion for Seniors | Safe, Simple & Trusted</title>
+  <meta name="description" content="Ask Grace is a free AI companion designed for adults 65+. Get help with health questions, scam protection, daily reminders, and friendly conversation — all with built-in safety guardrails." />
+  <meta name="keywords" content="AI for seniors, elderly AI assistant, scam protection seniors, senior companion app, AI health assistant elderly, Ask Grace" />
+  <link rel="canonical" href="https://askgrace.org" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph (Facebook, LinkedIn, iMessage) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://askgrace.org" />
+  <meta property="og:title" content="Ask Grace — AI Companion for Seniors" />
+  <meta property="og:description" content="A free, safe AI companion that helps seniors with health questions, scam protection, reminders, and everyday conversation." />
+  <meta property="og:image" content="https://askgrace.org/og-image.png" />
+  <meta property="og:site_name" content="Ask Grace" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ask Grace — AI Companion for Seniors" />
+  <meta name="twitter:description" content="A free, safe AI companion that helps seniors with health questions, scam protection, reminders, and everyday conversation." />
+  <meta name="twitter:image" content="https://askgrace.org/og-image.png" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#2d5a3d" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data (JSON-LD) for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ask Grace",
+    "url": "https://askgrace.org",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Web",
+    "description": "A free AI companion designed for adults 65+. Helps with health questions, scam protection, daily reminders, and friendly conversation with built-in safety guardrails.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "audience": {
+      "@type": "PeopleAudience",
+      "requiredMinAge": 55
+    }
+  }
+  </script>
+
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Source Sans 3', -apple-system, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #3d3520;
+      background-color: #fdf8f2;
+    }
+    h1, h2, h3, h4 { font-family: 'Lora', Georgia, serif; line-height: 1.3; }
+    a { color: #2d5a3d; text-decoration: none; }
+    img { max-width: 100%; height: auto; }
+
+    /* ========== LAYOUT ========== */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-alt { background-color: #fff9f4; }
+    .text-center { text-align: center; }
+
+    /* ========== NAV ========== */
+    .nav {
+      background: #2d5a3d;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Lora', serif;
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #fdf8f2;
+    }
+    .nav-brand span { color: #c9a97a; }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 28px;
+      background: #c9a97a;
+      color: #3d3520;
+      font-weight: 700;
+      border-radius: 999px;
+      font-size: 0.95em;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #d4b88a; }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      background: #e8f4ec;
+      color: #2d5a3d;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85em;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2em, 5vw, 3.5em);
+      color: #2d5a3d;
+      margin-bottom: 20px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span { color: #c9a97a; }
+    .hero p {
+      font-size: 1.2em;
+      color: #5c4a1e;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 48px;
+      background: #2d5a3d;
+      color: white;
+      font-size: 1.15em;
+      font-weight: 700;
+      border-radius: 999px;
+      transition: background 0.2s;
+      box-shadow: 0 4px 20px rgba(45, 90, 61, 0.25);
+    }
+    .hero-cta:hover { background: #3a7350; }
+    .hero-sub {
+      margin-top: 16px;
+      font-size: 0.85em;
+      color: #8b7a5e;
+    }
+
+    /* ========== FEATURES ========== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-icon {
+      font-size: 2.2em;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1.15em;
+      color: #2d5a3d;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.95em;
+      color: #5c4a1e;
+      line-height: 1.6;
+    }
+
+    /* ========== HOW IT WORKS ========== */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .step { text-align: center; }
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #2d5a3d;
+      color: white;
+      font-family: 'Lora', serif;
+      font-size: 1.4em;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-size: 1.05em;
+      color: #2d5a3d;
+      margin-bottom: 8px;
+    }
+    .step p {
+      font-size: 0.9em;
+      color: #5c4a1e;
+    }
+
+    /* ========== SAFETY ========== */
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .safety-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .safety-check {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: #e8f4ec;
+      color: #2d5a3d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1em;
+      margin-top: 2px;
+    }
+    .safety-item h4 {
+      font-size: 1em;
+      color: #2d5a3d;
+      margin-bottom: 4px;
+    }
+    .safety-item p {
+      font-size: 0.9em;
+      color: #5c4a1e;
+    }
+
+    /* ========== CAREGIVERS ========== */
+    .caregiver-box {
+      background: linear-gradient(135deg, #2d5a3d, #4a8c61);
+      color: white;
+      border-radius: 20px;
+      padding: 48px;
+      margin-top: 48px;
+      text-align: center;
+    }
+    .caregiver-box h2 { color: white; margin-bottom: 16px; font-size: 1.6em; }
+    .caregiver-box p { opacity: 0.9; max-width: 560px; margin: 0 auto 32px; font-size: 1.05em; }
+    .caregiver-cta {
+      display: inline-flex;
+      padding: 16px 40px;
+      background: white;
+      color: #2d5a3d;
+      font-weight: 700;
+      border-radius: 999px;
+      font-size: 1.05em;
+      transition: transform 0.2s;
+    }
+    .caregiver-cta:hover { transform: scale(1.03); }
+
+    /* ========== FAQ ========== */
+    .faq-list { max-width: 680px; margin: 48px auto 0; }
+    .faq-item {
+      border-bottom: 1px solid #e8d5bc;
+      padding: 24px 0;
+    }
+    .faq-item summary {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 1.05em;
+      color: #2d5a3d;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 1.4em; color: #c9a97a; }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item p {
+      margin-top: 12px;
+      font-size: 0.95em;
+      color: #5c4a1e;
+      line-height: 1.7;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: #2d5a3d;
+      color: #e8f4ec;
+      padding: 48px 0;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Lora', serif;
+      font-size: 1.8em;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .footer-brand span { color: #c9a97a; }
+    .footer-tagline {
+      opacity: 0.8;
+      margin-bottom: 24px;
+      font-size: 0.95em;
+    }
+    .footer-disclaimer {
+      max-width: 600px;
+      margin: 0 auto 16px;
+      font-size: 0.8em;
+      opacity: 0.65;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+      font-size: 0.85em;
+    }
+    .footer-links a { color: #c9a97a; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    /* ========== ACCESSIBILITY ========== */
+    :focus-visible { outline: 3px solid #2d5a3d; outline-offset: 2px; }
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: #2d5a3d; color: white; padding: 8px 16px;
+      z-index: 999; font-weight: 600;
+    }
+    .skip-link:focus { left: 0; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .hero { padding: 60px 0 48px; }
+      .section { padding: 56px 0; }
+      .caregiver-box { padding: 32px 24px; }
+      .nav-cta { padding: 8px 20px; font-size: 0.85em; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#features" class="skip-link">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-brand">Ask <span>Grace</span></div>
+      <a href="https://app.askgrace.org" class="nav-cta">Try Grace Free</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-badge">🛡️ Built for adults 65+</div>
+      <h1>Meet <span>Grace</span> — Your Trusted AI Companion</h1>
+      <p>
+        A free, safe AI assistant that helps seniors with health questions,
+        scam protection, daily reminders, and friendly conversation.
+      </p>
+      <a href="https://app.askgrace.org" class="hero-cta" aria-label="Start chatting with Grace for free">
+        Start Chatting with Grace →
+      </a>
+      <p class="hero-sub">Free to use. No credit card needed. No app to download.</p>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section class="section section-alt" id="features">
+    <div class="container text-center">
+      <h2>Everything a Senior Needs, Nothing They Don't</h2>
+      <p style="max-width:600px;margin:12px auto 0;color:#5c4a1e;">
+        Grace speaks clearly, never rushes, and always reminds you to check with your doctor or family.
+      </p>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Friendly Conversation</h3>
+          <p>Ask Grace anything — recipes, trivia, help writing a letter, or just someone to chat with. She's patient and always has time.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Scam Protection</h3>
+          <p>Grace detects common scams — IRS calls, fake prizes, tech support fraud — and warns you before you share money or information.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">💚</div>
+          <h3>Health Guidance</h3>
+          <p>Get wellness tips and help preparing questions for your doctor. Grace always reminds you to consult a professional for medical decisions.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">💊</div>
+          <h3>Daily Reminders</h3>
+          <p>Track medications, appointments, and calls to family. Simple checkboxes — no complicated apps to learn.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🚨</div>
+          <h3>Emergency Help</h3>
+          <p>One-touch emergency button that connects you to family or 911. Always visible, always ready.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🔤</div>
+          <h3>Large, Readable Text</h3>
+          <p>Adjustable font sizes from comfortable to extra-large. Designed for readability, not beauty contests.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="container text-center">
+      <h2>Simple to Start, Easy to Use</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Open Ask Grace</h3>
+          <p>Visit the app in your browser or add it to your phone's home screen. No download needed.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Ask Anything</h3>
+          <p>Type or speak your question. Grace responds in clear, simple language — never jargon.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Stay Safe</h3>
+          <p>Grace flags health, financial, and scam topics automatically with gentle safety reminders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="section section-alt" id="safety">
+    <div class="container">
+      <h2 class="text-center">Safety First — Always</h2>
+      <p class="text-center" style="max-width:560px;margin:12px auto 0;color:#5c4a1e;">
+        Grace was built with one rule: protect the person using it.
+      </p>
+      <div class="safety-grid">
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Never Plays Doctor</h4>
+            <p>Grace shares wellness tips but always says "please talk to your doctor" for medical questions. She never diagnoses or prescribes.</p>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Never Gives Financial Advice</h4>
+            <p>Grace explains concepts but always directs to a qualified advisor for financial decisions.</p>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Detects Scams Automatically</h4>
+            <p>When something sounds like a scam, Grace flags it immediately with clear guidance and the FTC reporting number.</p>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Private Conversations</h4>
+            <p>Your conversations are private. Ask Grace does not sell your personal information. Ever.</p>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Emergency Ready</h4>
+            <p>One-touch access to call family or 911. Grace also detects urgent language and guides you to get help.</p>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-check">✓</div>
+          <div>
+            <h4>Caregiver Approved</h4>
+            <p>Every response passes this test: "Would I be comfortable if this person's adult child read this?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR CAREGIVERS -->
+  <section class="section">
+    <div class="container">
+      <div class="caregiver-box">
+        <h2>Are You Setting This Up for a Parent?</h2>
+        <p>
+          Ask Grace takes two minutes to set up. Add your phone number as the emergency contact,
+          adjust the text size, and your parent has a safe, helpful companion available 24/7.
+        </p>
+        <a href="https://app.askgrace.org" class="caregiver-cta">Set Up Grace for Your Parent →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <h2 class="text-center">Common Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Is Ask Grace really free?</summary>
+          <p>Yes. You can start chatting with Grace right away at no cost. No credit card required. We offer optional premium features for those who want more, but the core experience is free.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is it safe? Can Grace give bad medical advice?</summary>
+          <p>Grace is specifically designed to never diagnose, prescribe, or give specific medical, legal, or financial advice. She shares general wellness tips and always reminds you to check with your doctor or a qualified professional. Every response is filtered through safety guardrails.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my information private?</summary>
+          <p>Your conversations are private. Ask Grace does not sell your personal information. Your data is protected with bank-level security and only you can access your account.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need to download an app?</summary>
+          <p>No. Ask Grace works in your phone or tablet's web browser. You can also add it to your home screen for easy access — it works just like an app without the download.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if there's an emergency?</summary>
+          <p>Ask Grace has a built-in emergency button that connects you to family or 911 with one touch. Grace also detects urgent language in your messages and guides you to get help immediately.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can my family see my conversations?</summary>
+          <p>No. Your conversations are private to your account. In the future, we plan to offer optional family sharing features, but only with your explicit permission.</p>
+        </details>
+        <details class="faq-item">
+          <summary>I'm not good with technology. Can I still use it?</summary>
+          <p>Absolutely. Ask Grace was designed specifically for people who find technology challenging. The text is large, the buttons are big, and you can even talk to Grace using your voice instead of typing.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section text-center">
+    <div class="container">
+      <h2>Ready to Meet Grace?</h2>
+      <p style="max-width:480px;margin:12px auto 32px;color:#5c4a1e;font-size:1.05em;">
+        Start chatting for free. No download, no credit card, no complicated setup.
+      </p>
+      <a href="https://app.askgrace.org" class="hero-cta">
+        Try Grace Free →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">Ask <span>Grace</span></div>
+      <p class="footer-tagline">Your trusted companion for healthy, independent living.</p>
+      <p class="footer-disclaimer">
+        Grace is not a doctor, nurse, lawyer, or financial advisor.
+        Always check with a qualified professional before making health or financial decisions.
+      </p>
+      <p class="footer-disclaimer">
+        &copy; 2026 Ask Grace. All rights reserved.
+      </p>
+      <div class="footer-links">
+        <a href="https://app.askgrace.org">Open App</a>
+        <a href="#safety">Safety</a>
+        <a href="#faq">FAQ</a>
+        <a href="#features">Features</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
