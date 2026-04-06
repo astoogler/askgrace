@@ -75,12 +75,6 @@ export default function AuthScreen({ onOAuth, onSignIn, onSignUp, onSkip, loadin
       <div style={styles.formWrapper}>
         <OAuthButtons onOAuth={onOAuth} disabled={loading} />
 
-        <div style={styles.divider}>
-          <span style={styles.dividerLine} />
-          <span>or use email</span>
-          <span style={styles.dividerLine} />
-        </div>
-
         <EmailPasswordForm
           onSignIn={onSignIn}
           onSignUp={onSignUp}

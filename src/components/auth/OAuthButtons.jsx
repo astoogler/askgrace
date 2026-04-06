@@ -1,5 +1,20 @@
 import PropTypes from 'prop-types';
 
+// OAuth providers require configuration in the Supabase dashboard + developer consoles.
+// Only show buttons for providers that are actually enabled.
+// Set to true once you've configured each provider in Supabase → Authentication → Providers.
+const ENABLED_PROVIDERS = {
+  google: false,
+  apple: false,
+  azure: false,
+};
+
+const PROVIDERS = [
+  { id: 'google', label: 'Sign in with Google', icon: 'G', bg: '#fff', color: 'var(--brown-dark)' },
+  { id: 'apple', label: 'Sign in with Apple', icon: '\uF8FF', bg: '#000', color: '#fff' },
+  { id: 'azure', label: 'Sign in with Microsoft', icon: '⊞', bg: '#2f2f2f', color: '#fff' },
+];
+
 const styles = {
   btn: (bg, color) => ({
     display: 'flex',
@@ -24,37 +39,25 @@ const styles = {
 };
 
 export default function OAuthButtons({ onOAuth, disabled }) {
+  const activeProviders = PROVIDERS.filter((p) => ENABLED_PROVIDERS[p.id]);
+
+  // Don't render anything if no OAuth providers are enabled
+  if (activeProviders.length === 0) return null;
+
   return (
     <div>
-      <button
-        style={styles.btn('#fff', 'var(--brown-dark)')}
-        onClick={() => onOAuth('google')}
-        disabled={disabled}
-        aria-label="Sign in with Google"
-      >
-        <span style={styles.icon}>G</span>
-        Sign in with Google
-      </button>
-
-      <button
-        style={styles.btn('#000', '#fff')}
-        onClick={() => onOAuth('apple')}
-        disabled={disabled}
-        aria-label="Sign in with Apple"
-      >
-        <span style={styles.icon}></span>
-        Sign in with Apple
-      </button>
-
-      <button
-        style={styles.btn('#2f2f2f', '#fff')}
-        onClick={() => onOAuth('azure')}
-        disabled={disabled}
-        aria-label="Sign in with Microsoft"
-      >
-        <span style={styles.icon}>⊞</span>
-        Sign in with Microsoft
-      </button>
+      {activeProviders.map((p) => (
+        <button
+          key={p.id}
+          style={styles.btn(p.bg, p.color)}
+          onClick={() => onOAuth(p.id)}
+          disabled={disabled}
+          aria-label={p.label}
+        >
+          <span style={styles.icon}>{p.icon}</span>
+          {p.label}
+        </button>
+      ))}
     </div>
   );
 }

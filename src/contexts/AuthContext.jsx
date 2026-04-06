@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const signUpWithEmail = useCallback(async (email, password, displayName) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -57,6 +57,12 @@ export function AuthProvider({ children }) {
       },
     });
     if (error) throw error;
+
+    // Supabase returns a user with identities=[] when email confirmation is required
+    // but the user hasn't confirmed yet. Let the caller know.
+    if (data?.user && data.user.identities?.length === 0) {
+      throw new Error('email_confirmation_required');
+    }
   }, []);
 
   const signOut = useCallback(async () => {

@@ -47,18 +47,29 @@ const styles = {
     fontSize: '0.8em',
     textAlign: 'center',
   },
+  success: {
+    color: 'var(--forest)',
+    fontSize: '0.85em',
+    textAlign: 'center',
+    backgroundColor: 'var(--forest-pale)',
+    padding: 'var(--space-md)',
+    borderRadius: 'var(--radius-md)',
+    lineHeight: 1.5,
+  },
 };
 
 export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
 
     if (!email.trim() || !password.trim()) {
       setError('Please fill in all fields.');
@@ -77,14 +88,23 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
         await onSignIn(email.trim(), password);
       }
     } catch (err) {
-      // Friendly error messages — never show raw Supabase errors
       const msg = err.message || '';
+
+      // Email confirmation required — show success, not error
+      if (msg.includes('email_confirmation_required')) {
+        setSuccessMsg('Check your email for a confirmation link. Once confirmed, come back and sign in.');
+        return;
+      }
+
+      // Friendly error messages — never show raw Supabase errors
       if (msg.includes('Invalid login')) {
         setError('Email or password is incorrect. Please try again.');
       } else if (msg.includes('already registered')) {
         setError('That email is already registered. Try signing in instead.');
       } else if (msg.includes('valid email')) {
         setError('Please enter a valid email address.');
+      } else if (msg.includes('Email not confirmed')) {
+        setError('Please check your email and click the confirmation link first, then try signing in.');
       } else {
         setError('Something went wrong. Please try again.');
       }
@@ -129,8 +149,9 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
       />
 
       {error && <p style={styles.error}>{error}</p>}
+      {successMsg && <p style={styles.success}>{successMsg}</p>}
 
-      <button style={styles.submitBtn} type="submit" disabled={disabled}>
+      <button style={styles.submitBtn} type="submit" disabled={disabled || !!successMsg}>
         {isSignUp ? 'Create Account' : 'Sign In'}
       </button>
 
