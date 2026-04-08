@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(curl -sI \"https://askgrace.org/og-image.png\")",
-      "Bash(curl -sI \"https://www.askgrace.org/og-image.png\")"
+      "Bash(curl -sI \"https://www.askgrace.org/og-image.png\")",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['text']\\)\")",
+      "Bash(curl -sI \"https://askgrace.org\")"
     ]
   }
 }
