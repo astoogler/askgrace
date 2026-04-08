@@ -82,7 +82,7 @@ const signOutBtnStyle = {
   minHeight: 60,
 };
 
-export default function SettingsScreen({ settings, updateSettings, onBack, isAuthenticated, userEmail, onSignOut }) {
+export default function SettingsScreen({ settings, updateSettings, onBack, isAuthenticated, userId, userEmail, onSignOut }) {
   return (
     <div style={styles.container}>
       <button style={styles.backBtn} onClick={onBack} aria-label="Go back">
@@ -125,12 +125,17 @@ export default function SettingsScreen({ settings, updateSettings, onBack, isAut
       </div>
 
       <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Emergency Contact</h3>
-        <EmergencyContactForm
-          name={settings.caregiverName}
-          phone={settings.caregiverPhone}
-          onSave={(name, phone) => updateSettings({ caregiverName: name, caregiverPhone: phone })}
-        />
+        <h3 style={styles.sectionTitle}>Emergency Contacts</h3>
+        {isAuthenticated ? (
+          <EmergencyContactForm
+            userId={userId}
+            onContactsChange={(name, phone) => updateSettings({ caregiverName: name, caregiverPhone: phone })}
+          />
+        ) : (
+          <p style={{ fontSize: '0.85em', color: 'var(--slate)', lineHeight: 1.6 }}>
+            Sign in to add emergency contacts. Your contacts will be saved securely to your account.
+          </p>
+        )}
       </div>
 
       {isAuthenticated && (
@@ -173,6 +178,7 @@ SettingsScreen.propTypes = {
   updateSettings: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  userId: PropTypes.string,
   userEmail: PropTypes.string,
   onSignOut: PropTypes.func,
 };

@@ -157,6 +157,7 @@ export default function App() {
           updateSettings={updateSettings}
           onBack={() => setShowSettings(false)}
           isAuthenticated={isAuthenticated}
+          userId={userId}
           userEmail={user?.email}
           onSignOut={signOut}
         />
