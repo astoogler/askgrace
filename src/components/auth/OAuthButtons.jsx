@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 // Only show buttons for providers that are actually enabled.
 // Set to true once you've configured each provider in Supabase → Authentication → Providers.
 const ENABLED_PROVIDERS = {
-  google: false,
-  apple: false,
-  azure: false,
+  google: true,
+  facebook: false,  // TODO: Enable after configuring in Supabase + Meta Developer Console
+  apple: false,     // TODO: Enable after configuring in Supabase + Apple Developer Account
+  azure: false,     // TODO: Enable after configuring in Supabase + Azure Portal
 };
 
 const PROVIDERS = [
   { id: 'google', label: 'Sign in with Google', icon: 'G', bg: '#fff', color: 'var(--brown-dark)' },
+  { id: 'facebook', label: 'Sign in with Facebook', icon: 'f', bg: '#1877F2', color: '#fff' },
   { id: 'apple', label: 'Sign in with Apple', icon: '\uF8FF', bg: '#000', color: '#fff' },
-  { id: 'azure', label: 'Sign in with Microsoft', icon: '⊞', bg: '#2f2f2f', color: '#fff' },
+  { id: 'azure', label: 'Sign in with Microsoft/Outlook', icon: '⊞', bg: '#2f2f2f', color: '#fff' },
 ];
 
 const styles = {
