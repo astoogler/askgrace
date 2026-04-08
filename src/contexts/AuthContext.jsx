@@ -47,19 +47,28 @@ export function AuthProvider({ children }) {
     if (error) throw error;
   }, []);
 
-  const signUpWithEmail = useCallback(async (email, password, displayName) => {
+  const signUpWithEmail = useCallback(async (email, password, displayName, phone = '', optIn = false) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { full_name: displayName },
+        data: { full_name: displayName, phone },
         emailRedirectTo: window.location.origin,
       },
     });
     if (error) throw error;
 
+    // Save phone and opt-in to profiles table if user was created
+    if (data?.user?.id && (phone || optIn)) {
+      supabase.from('profiles').update({
+        phone: phone || '',
+        sms_opt_in: optIn,
+        email_opt_in: optIn,
+        opted_in_at: optIn ? new Date().toISOString() : null,
+      }).eq('id', data.user.id).then(() => {});
+    }
+
     // Supabase returns a user with identities=[] when email confirmation is required
-    // but the user hasn't confirmed yet. Let the caller know.
     if (data?.user && data.user.identities?.length === 0) {
       throw new Error('email_confirmation_required');
     }

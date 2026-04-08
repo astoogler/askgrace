@@ -63,6 +63,8 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [optIn, setOptIn] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
@@ -83,7 +85,7 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
 
     try {
       if (isSignUp) {
-        await onSignUp(email.trim(), password, name.trim());
+        await onSignUp(email.trim(), password, name.trim(), phone.trim(), optIn);
       } else {
         await onSignIn(email.trim(), password);
       }
@@ -147,6 +149,44 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
         aria-label="Password"
         autoComplete={isSignUp ? 'new-password' : 'current-password'}
       />
+
+      {isSignUp && (
+        <>
+          <label style={styles.label}>Phone Number <span style={{ fontWeight: 400, color: 'var(--slate-light)' }}>(optional)</span></label>
+          <input
+            style={styles.input}
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="e.g., (555) 123-4567"
+            aria-label="Phone number (optional)"
+            autoComplete="tel"
+          />
+
+          <label style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 'var(--space-sm)',
+            fontSize: '0.8em',
+            color: 'var(--slate)',
+            lineHeight: 1.5,
+            cursor: 'pointer',
+            marginBottom: 'var(--space-md)',
+          }}>
+            <input
+              type="checkbox"
+              checked={optIn}
+              onChange={(e) => setOptIn(e.target.checked)}
+              style={{ marginTop: 3, width: 20, height: 20, flexShrink: 0 }}
+              aria-label="Opt in to tips and updates"
+            />
+            <span>
+              I'd like to receive helpful tips and updates from Ask Grace via text and email.
+              You can unsubscribe anytime.
+            </span>
+          </label>
+        </>
+      )}
 
       {error && <p style={styles.error}>{error}</p>}
       {successMsg && <p style={styles.success}>{successMsg}</p>}
