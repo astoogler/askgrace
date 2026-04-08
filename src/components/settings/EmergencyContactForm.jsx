@@ -17,6 +17,15 @@ const RELATIONSHIPS = [
 
 const MAX_CONTACTS = 5;
 
+// Format phone as (xxx) xxx-xxxx while typing
+function formatPhone(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 10);
+  if (digits.length === 0) return '';
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 const styles = {
   label: {
     fontWeight: 600,
@@ -222,7 +231,7 @@ export default function EmergencyContactForm({ userId, onContactsChange }) {
           <div style={styles.contactInfo}>
             <div style={styles.contactName}>{c.name}</div>
             <div style={styles.contactMeta}>
-              {getRelLabel(c.relationship)} &bull; {c.phone}
+              {getRelLabel(c.relationship)} &bull; {formatPhone(c.phone)}
             </div>
           </div>
           <button
@@ -263,10 +272,11 @@ export default function EmergencyContactForm({ userId, onContactsChange }) {
           <input
             style={styles.input}
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="e.g., (555) 123-4567"
+            onChange={(e) => setPhone(formatPhone(e.target.value))}
+            placeholder="(555) 123-4567"
             type="tel"
             aria-label="Phone number"
+            maxLength={14}
           />
 
           {error && <p style={styles.error}>{error}</p>}

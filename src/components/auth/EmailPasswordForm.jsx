@@ -58,6 +58,14 @@ const styles = {
   },
 };
 
+function formatPhone(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 10);
+  if (digits.length === 0) return '';
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
 export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
   const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState('');
@@ -157,10 +165,11 @@ export default function EmailPasswordForm({ onSignIn, onSignUp, disabled }) {
             style={styles.input}
             type="tel"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="e.g., (555) 123-4567"
+            onChange={(e) => setPhone(formatPhone(e.target.value))}
+            placeholder="(555) 123-4567"
             aria-label="Phone number (optional)"
             autoComplete="tel"
+            maxLength={14}
           />
 
           <label style={{
