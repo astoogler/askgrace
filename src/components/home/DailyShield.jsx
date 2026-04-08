@@ -68,12 +68,12 @@ export default function DailyShield() {
   const dateLabel = getTodayDateLabel();
 
   const handleShare = () => {
-    const text = `Grace's Daily Shield for ${dateLabel}: "${tip}" Stay sharp! 🛡️ askgrace.org`;
+    const text = `Grace's Daily Shield for ${dateLabel}: "${tip}" Stay sharp! 🛡️`;
     trackFeature('daily_shield_share');
     shareText(text, () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
+    }, 'https://askgrace.org');
   };
 
   return (

@@ -74,7 +74,7 @@ export default function WarningCard({ riskLevel }) {
     shareText(text, () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
+    }, 'https://askgrace.org');
   };
 
   return (
