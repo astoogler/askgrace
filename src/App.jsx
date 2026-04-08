@@ -41,7 +41,8 @@ export default function App() {
     }
     return id;
   })();
-  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || null;
+  const fullName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || null;
+  const firstName = fullName ? fullName.split(' ')[0] : null;
 
   const { settings, updateSettings } = useSettings(userId);
   const emergency = useEmergency(settings.caregiverName, settings.caregiverPhone);
@@ -132,7 +133,7 @@ export default function App() {
         <Header
           onSettingsTap={() => setShowSettings(true)}
           isAuthenticated={isAuthenticated}
-          userName={userName}
+          userName={firstName}
           onSignInTap={() => setShowAuthScreen(true)}
         />
         <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -193,7 +194,7 @@ export default function App() {
             reminders={reminders.reminders}
             onNavigate={handleTabChange}
             caregiverPhone={settings.caregiverPhone}
-            firstName={userName}
+            firstName={firstName}
             isAuthenticated={isAuthenticated}
             onSignInTap={() => setShowAuthScreen(true)}
           />
@@ -206,7 +207,7 @@ export default function App() {
       <Header
         onSettingsTap={() => setShowSettings(true)}
         isAuthenticated={isAuthenticated}
-        userName={userName}
+        userName={firstName}
         onSignInTap={() => setShowAuthScreen(true)}
       />
       {settings.familyAlerts && <EmergencyBar onTap={emergency.open} />}
