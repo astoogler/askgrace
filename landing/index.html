@@ -366,11 +366,16 @@
     .skip-link:focus { left: 0; }
 
     /* ========== RESPONSIVE ========== */
+    .nav-links { display: flex; gap: 20px; font-size: 0.9em; }
+    .nav-links a { color: #e8f4ec; text-decoration: none; font-weight: 500; }
+    .nav-links a:hover { text-decoration: underline; }
+
     @media (max-width: 768px) {
       .hero { padding: 60px 0 48px; }
       .section { padding: 56px 0; }
       .caregiver-box { padding: 32px 24px; }
       .nav-cta { padding: 8px 20px; font-size: 0.85em; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
@@ -383,9 +388,17 @@
 
   <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="container">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
       <div class="nav-brand">Ask <span>Grace</span></div>
-      <a href="https://app.askgrace.org" class="nav-cta">Try Grace Free</a>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="/ai-for-seniors">For Seniors</a>
+          <a href="/ai-for-beginners">For Beginners</a>
+          <a href="/is-ai-safe">Safety</a>
+          <a href="/faq">FAQ</a>
+        </nav>
+        <a href="https://app.askgrace.org" class="nav-cta">Try Grace Free</a>
+      </div>
     </div>
   </nav>
 
@@ -603,6 +616,10 @@
       </p>
       <div class="footer-links">
         <a href="https://app.askgrace.org">Open App</a>
+        <a href="/ai-for-seniors">For Seniors</a>
+        <a href="/ai-for-beginners">For Beginners</a>
+        <a href="/ai-for-elderly-parents">For Caregivers</a>
+        <a href="/is-ai-safe">Safety</a>
         <a href="/about">About</a>
         <a href="/faq">FAQ</a>
         <a href="/privacy">Privacy</a>

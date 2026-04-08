@@ -6,7 +6,8 @@
       "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['text']\\)\")",
       "Bash(curl -sI \"https://askgrace.org\")",
       "Bash(node /Users/austin/Desktop/hashtagadagency/askgrace/landing/generate-sitemap.js)",
-      "Bash(node /Users/austin/Desktop/hashtagadagency/askgrace/landing/generate-sitemap.cjs)"
+      "Bash(node /Users/austin/Desktop/hashtagadagency/askgrace/landing/generate-sitemap.cjs)",
+      "Bash(grep -l 'footer-links\\\\|class=\"footer\"' /Users/austin/Desktop/hashtagadagency/askgrace/landing/*.html)"
     ]
   }
 }
