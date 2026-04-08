@@ -1,32 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { trackReminder } from '../utils/analytics';
-import { DEFAULT_REMINDERS } from '../constants/topics';
 import { supabase } from '../lib/supabase';
 
 const STORAGE_KEY = 'agrace_reminders';
 
 export function useReminders(userId) {
-  const [reminders, setReminders] = useState(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : DEFAULT_REMINDERS;
-    } catch {
-      return DEFAULT_REMINDERS;
-    }
-  });
+  const [reminders, setReminders] = useState([]);
 
-  // Load from Supabase when authenticated
+  // Load reminders: from Supabase for authenticated users, localStorage for guests
   useEffect(() => {
-    if (!userId) return;
-
-    supabase
-      .from('reminders')
-      .select('*')
-      .eq('user_id', userId)
-      .order('sort_order', { ascending: true })
-      .then(({ data }) => {
-        if (data && data.length > 0) {
-          const mapped = data.map((r) => ({
+    if (userId) {
+      supabase
+        .from('reminders')
+        .select('*')
+        .eq('user_id', userId)
+        .order('sort_order', { ascending: true })
+        .then(({ data }) => {
+          const mapped = (data || []).map((r) => ({
             id: r.id,
             name: r.name,
             time: r.time,
@@ -35,8 +25,14 @@ export function useReminders(userId) {
           }));
           setReminders(mapped);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(mapped));
-        }
-      });
+        });
+    } else {
+      // Guest: load from localStorage, start empty if nothing saved
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) setReminders(JSON.parse(stored));
+      } catch { /* start empty */ }
+    }
   }, [userId]);
 
   // Persist to localStorage on every change
