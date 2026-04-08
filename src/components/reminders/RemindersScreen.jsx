@@ -60,6 +60,7 @@ const styles = {
 
 export default function RemindersScreen({ reminders, toggleDone, addReminder, deleteReminder, resetDaily, stats }) {
   const [showModal, setShowModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -88,12 +89,39 @@ export default function RemindersScreen({ reminders, toggleDone, addReminder, de
       </div>
 
       {reminders.map((r) => (
-        <ReminderCard
-          key={r.id}
-          reminder={r}
-          onToggle={toggleDone}
-          onDelete={deleteReminder}
-        />
+        <div key={r.id} style={{ position: 'relative' }}>
+          <ReminderCard
+            reminder={r}
+            onToggle={editMode ? () => {} : toggleDone}
+            onDelete={deleteReminder}
+          />
+          {editMode && (
+            <button
+              onClick={() => deleteReminder(r.id)}
+              style={{
+                position: 'absolute',
+                top: 8,
+                right: 24,
+                backgroundColor: 'var(--red)',
+                color: 'white',
+                border: 'none',
+                borderRadius: 'var(--radius-full)',
+                width: 32,
+                height: 32,
+                fontWeight: 700,
+                fontSize: '1em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: 'var(--shadow-md)',
+              }}
+              aria-label={`Remove ${r.name}`}
+            >
+              ✕
+            </button>
+          )}
+        </div>
       ))}
 
       <button
@@ -104,6 +132,27 @@ export default function RemindersScreen({ reminders, toggleDone, addReminder, de
         <PlusIcon size={22} />
         Add Reminder
       </button>
+
+      {reminders.length > 0 && (
+        <button
+          onClick={() => setEditMode(!editMode)}
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            padding: 'var(--space-sm)',
+            color: editMode ? 'var(--forest)' : 'var(--red)',
+            fontSize: '0.85em',
+            fontWeight: 600,
+            cursor: 'pointer',
+            minHeight: 44,
+            background: 'none',
+            border: 'none',
+          }}
+          aria-label={editMode ? 'Done removing' : 'Remove a reminder'}
+        >
+          {editMode ? '✓ Done' : 'Remove a Reminder'}
+        </button>
+      )}
 
       {/* Dev-only reset button */}
       {import.meta.env.DEV && (
