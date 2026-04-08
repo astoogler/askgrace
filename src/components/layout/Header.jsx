@@ -75,7 +75,7 @@ export default function Header({ onSettingsTap, isAuthenticated, userName, onSig
             onClick={onSignInTap}
             aria-label="Sign in"
           >
-            Sign In
+            Sign Up Free
           </button>
         )}
         <button
