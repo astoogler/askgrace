@@ -242,7 +242,13 @@ Deno.serve(async (req: Request) => {
         body: JSON.stringify({
           model: tier.model,
           max_tokens: tier.maxTokens,
-          system: systemPrompt,
+          system: [
+            {
+              type: 'text',
+              text: systemPrompt,
+              cache_control: { type: 'ephemeral' },
+            },
+          ],
           messages,
         }),
       });
@@ -259,11 +265,13 @@ Deno.serve(async (req: Request) => {
     // Fire-and-forget: log usage without blocking response
     const tokensIn = data.usage?.input_tokens ?? 0;
     const tokensOut = data.usage?.output_tokens ?? 0;
+    const cacheRead = data.usage?.cache_read_input_tokens ?? 0;
+    const cacheWrite = data.usage?.cache_creation_input_tokens ?? 0;
     supabase.from('usage_log').insert({
       user_id: userId,
       anon_id: isGuest ? anonId : null,
       endpoint: 'chat',
-      tokens_in: tokensIn,
+      tokens_in: tokensIn + cacheRead + cacheWrite,
       tokens_out: tokensOut,
       model: tier.model,
     }).then(() => {});
